@@ -14,8 +14,8 @@ export default function HomePage() {
 
     const buttons = [
         { id: 1, img: learnImg, label: "Learn", route: "/learn" },
-        { id: 2, img: gamesImg, label: "Games", route: "/games" },
-        { id: 3, img: rankImg, label: "Rank", route: "/rank" },
+        { id: 2, img: gamesImg, label: "Quiz", route: "/quiz" },
+        { id: 3, img: rankImg, label: "Shop", route: "/shop" },
     ];
 
     return (

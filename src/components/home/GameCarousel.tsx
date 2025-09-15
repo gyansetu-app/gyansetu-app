@@ -27,7 +27,6 @@ export default function GameCarousel() {
               {item.link ? (
                 <a
                   href={item.link}
-                  target="_blank"
                   rel="noopener noreferrer"
                   className="w-full"
                 >
