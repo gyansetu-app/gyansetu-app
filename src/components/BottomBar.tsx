@@ -1,6 +1,7 @@
-import { Home, Trophy, Sparkles } from "lucide-react";
+import { Home, Trophy } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link, useLocation } from "react-router-dom";
+import MascotDialog from "./MascotDialog";
 
 
 export default function BottomBar() {
@@ -25,12 +26,7 @@ export default function BottomBar() {
       )}
       </Link>
 
-      <div className="relative -top-11">
-        <Button variant="neutral" className="h-17 w-17">
-          <Sparkles className="!size-6" />
-        </Button>
-      </div>
-
+      <MascotDialog />
       <Link to="/leaderboard">
         {active === "leaders" ? (
           <Button variant="noShadow">
