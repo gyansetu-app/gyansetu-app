@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import HomePage from './pages/HomePage.tsx'
 import LeaderPage from './pages/LeaderPage.tsx'
 import LearnPage from './pages/LearnPage.tsx'
+import BottomBar from './components/BottomBar.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -14,6 +15,7 @@ createRoot(document.getElementById('root')!).render(
       <Route path="/learn" element = {<LearnPage />} />
       <Route path="/leaderboard" element = {<LeaderPage />} />
     </Routes>
+    <BottomBar />
     </BrowserRouter>
   </StrictMode>,
 )
