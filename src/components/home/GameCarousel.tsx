@@ -11,10 +11,11 @@ export default function GameCarousel() {
     "Rasayan: Compound Building Game",
     "Ballebaaz: Trigonometry Puzzle",
     "Aanganwadi: Virtual Village",
+    "Experimental Fun Lab"
   ]
   return <Carousel className="w-full">
     <CarouselContent>
-      {Array.from({ length: 3 }).map((_, index) => (
+      {Array.from({ length: 4 }).map((_, index) => (
         <CarouselItem key={index} >
           <div className="p-[10px]">
             <ImageCard
