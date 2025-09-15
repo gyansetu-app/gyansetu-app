@@ -61,9 +61,9 @@ export default function MascotDialog() {
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
                 <DialogHeader>
-                    <DialogTitle>Ask CHARACTER_NAME</DialogTitle>
+                    <DialogTitle>Ask Malli</DialogTitle>
                     <DialogDescription>
-                        Ask CHARACTER_NAME any doubt or questions you might have!</DialogDescription>
+                        Ask Malli any doubt or questions you might have!</DialogDescription>
                 </DialogHeader>
                 <>
                     <Lottie animationData={mascotAnimation} loop={true} className="h-72" />
