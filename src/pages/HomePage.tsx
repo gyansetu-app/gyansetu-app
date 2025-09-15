@@ -12,7 +12,7 @@ export default function HomePage() {
             {/* Home row layout */}
             <div className="flex px-2 mb-3">
 {Array.from({ length: 3 }).map((_, index) => (
-               <Card key={index} className="basis-1/3 min-h-40 mr-2">
+               <Card key={index} className="basis-1/3 min-h-30 mr-2">
                     <CardContent>
                         <p className="text-lg">hello</p>
                     </CardContent>
