@@ -10,12 +10,15 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@liveblocks/client": "^3.7.1",
+    "@liveblocks/react": "^3.7.1",
     "@radix-ui/react-avatar": "^1.1.10",
     "@radix-ui/react-navigation-menu": "^1.2.14",
     "@radix-ui/react-slot": "^1.2.3",
     "@tailwindcss/vite": "^4.1.13",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "dotenv": "^17.2.2",
     "embla-carousel": "^8.6.0",
     "embla-carousel-react": "^8.6.0",
     "lucide-react": "^0.544.0",
