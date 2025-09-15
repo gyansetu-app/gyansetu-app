@@ -4,17 +4,17 @@ import {
   CarouselItem,
 } from "@/components/ui/carousel";
 
-import ImageCard from "@/components/ui/image-card";
+import ImageCard from "@/components/ui/game-carousel-item";
 
 export default function GameCarousel() {
   const items = [
-    { caption: "Rasayan: Compound Building Game", image: "home/game_posters/slide_0.png" },
+    { caption: "Rasyan: Compound Building Game", image: "home/game_posters/slide_0.png" },
     { caption: "Ballebaaz: Trigonometry Puzzle", image: "home/game_posters/slide_1.png" },
     { caption: "Aanganwadi: Virtual Village", image: "home/game_posters/slide_2.png" },
-    { 
-      caption: "Fun Lab", 
-      image: "home/game_posters/slide_3.png", 
-      link: "https://sandboxels.r74n.com/" 
+    {
+      caption: "Fun Lab",
+      image: "home/game_posters/slide_3.png",
+      link: "https://sandboxels.r74n.com/"
     },
   ];
 
