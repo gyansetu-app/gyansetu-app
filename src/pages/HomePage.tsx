@@ -69,7 +69,6 @@ export default function HomePage() {
 
                 <GameCarousel />
 
-                {/* STEM modules */}
                 <div className="mt-6 mb-4 mx-2">
                     <h2 className="text-2xl font-semibold mb-4">Recent Modules</h2>
                     <div className="columns-2 gap-4 space-y-4">
