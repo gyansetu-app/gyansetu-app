@@ -16,15 +16,12 @@ import { Sparkles } from "lucide-react";
 import Lottie from "lottie-react";
 import mascotAnimation from "@/assets/Smiling Owl.json";
 
-// 🔑 Sarvam API key from .env
 const SARVAM_KEY = import.meta.env.VITE_SARVAM_API_KEY as string;
-
-// API URLs
 const STT_URL = "https://api.sarvam.ai/speech-to-text";
 const TTS_URL = "https://api.sarvam.ai/text-to-speech";
 const CHAT_URL = "https://api.sarvam.ai/v1/chat/completions";
+const TRANSLATE_URL = "https://api.sarvam.ai/translate";
 
-// ---------- Hook to record audio ----------
 function useAudioRecorder() {
   const [recording, setRecording] = useState(false);
   const [audioBlob, setAudioBlob] = useState<Blob | null>(null);
@@ -56,19 +53,48 @@ function useAudioRecorder() {
   return { recording, start, stop, audioBlob, setAudioBlob };
 }
 
-// ---------- Dictaphone ----------
+async function sarvamTranslate(
+  text: string,
+  targetLang: string,
+  sourceLang: string = "auto"
+): Promise<string> {
+  const payload = {
+    input: text,
+    source_language_code: sourceLang,
+    target_language_code: targetLang,
+    model: "sarvam-translate:v1",
+  };
+
+  const res = await fetch(TRANSLATE_URL, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "api-subscription-key": SARVAM_KEY,
+    },
+    body: JSON.stringify(payload),
+  });
+
+  const json = await res.json();
+  const translated = json.translated_text;
+  if (!translated) {
+    console.error("Translation error or no translated_text:", json);
+    return text;
+  }
+  return translated;
+}
+
 function Dictaphone({ onFinalAudio }: { onFinalAudio: (url: string) => void }) {
   const { recording, start, stop, audioBlob, setAudioBlob } =
     useAudioRecorder();
   const [loading, setLoading] = useState(false);
   const [transcript, setTranscript] = useState("");
+  const [selectedLanguage, setSelectedLanguage] = useState<string | null>(null);
 
   async function processAudio() {
     if (!audioBlob) return;
     setLoading(true);
 
     try {
-      // 1️⃣ Speech → Text
       const formData = new FormData();
       formData.append("model", "saarika:v2.5");
       formData.append("language_code", "en-IN");
@@ -79,12 +105,10 @@ function Dictaphone({ onFinalAudio }: { onFinalAudio: (url: string) => void }) {
         headers: { "api-subscription-key": SARVAM_KEY },
         body: formData,
       });
-
       const sttJson = await sttRes.json();
       const userText = sttJson.transcript || "";
       setTranscript(userText);
 
-      // 2️⃣ Send user text to Sarvam-M for AI response
       const chatRes = await fetch(CHAT_URL, {
         method: "POST",
         headers: {
@@ -96,12 +120,14 @@ function Dictaphone({ onFinalAudio }: { onFinalAudio: (url: string) => void }) {
           messages: [{ role: "user", content: userText }],
         }),
       });
-
       const chatJson = await chatRes.json();
-      const aiReply =
+      let aiReply =
         chatJson.choices?.[0]?.message?.content || "I didn't understand.";
 
-      // 3️⃣ Text → Speech
+      if (selectedLanguage && selectedLanguage !== "en-IN") {
+        aiReply = await sarvamTranslate(aiReply, selectedLanguage, "en-IN");
+      }
+
       const ttsRes = await fetch(TTS_URL, {
         method: "POST",
         headers: {
@@ -111,9 +137,9 @@ function Dictaphone({ onFinalAudio }: { onFinalAudio: (url: string) => void }) {
         body: JSON.stringify({
           text: aiReply,
           speaker: "anushka",
+          target_language_code: selectedLanguage || "en-IN",
         }),
       });
-
       const ttsJson = await ttsRes.json();
 
       if (ttsJson.audios && ttsJson.audios.length > 0) {
@@ -125,7 +151,6 @@ function Dictaphone({ onFinalAudio }: { onFinalAudio: (url: string) => void }) {
         }
         const aiBlob = new Blob([bytes], { type: "audio/wav" });
         const aiUrl = URL.createObjectURL(aiBlob);
-
         onFinalAudio(aiUrl);
       } else {
         console.error("No audio received from TTS");
@@ -133,7 +158,7 @@ function Dictaphone({ onFinalAudio }: { onFinalAudio: (url: string) => void }) {
 
       setAudioBlob(null);
     } catch (err) {
-      console.error("Error processing audio:", err);
+      console.error("Error in processAudio:", err);
     } finally {
       setLoading(false);
     }
@@ -152,6 +177,26 @@ function Dictaphone({ onFinalAudio }: { onFinalAudio: (url: string) => void }) {
         <Button onClick={processAudio} disabled={!audioBlob || loading}>
           {loading ? "Processing…" : "Send"}
         </Button>
+        <select
+          onChange={(e) => setSelectedLanguage(e.target.value)}
+          className="select select-bordered"
+          defaultValue=""
+        >
+          <option value="" disabled>
+            Select Language
+          </option>
+          <option value="en-IN">English</option>
+          <option value="hi-IN">Hindi</option>
+          <option value="od-IN">Odia</option>
+          <option value="bn-IN">Bengali</option>
+          <option value="ta-IN">Tamil</option>
+          <option value="te-IN">Telugu</option>
+          <option value="kn-IN">Kannada</option>
+          <option value="ml-IN">Malayalam</option>
+          <option value="mr-IN">Marathi</option>
+          <option value="gu-IN">Gujarati</option>
+          <option value="pa-IN">Punjabi</option>
+        </select>
       </div>
       {transcript && (
         <p className="mt-2 text-sm text-gray-700">You said: {transcript}</p>
@@ -160,7 +205,6 @@ function Dictaphone({ onFinalAudio }: { onFinalAudio: (url: string) => void }) {
   );
 }
 
-// ---------- Main Dialog ----------
 export default function MascotDialog() {
   const [aiAudioUrl, setAiAudioUrl] = useState<string | null>(null);
   const audioRef = useRef<HTMLAudioElement>(null);
