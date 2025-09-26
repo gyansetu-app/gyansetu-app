@@ -7,6 +7,7 @@ import LeaderPage from "./pages/LeaderPage.tsx";
 import LearnPage from "./pages/LearnPage.tsx";
 import BottomBar from "./components/BottomBar.tsx";
 import QuizPage from "./pages/Quizpage.tsx";
+import VideoVisualisePage from "./pages/VideoVisualisePage.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -16,6 +17,7 @@ createRoot(document.getElementById("root")!).render(
         <Route path="/learn" element={<LearnPage />} />
         <Route path="/leaderboard" element={<LeaderPage />} />
         <Route path="/quiz" element={<QuizPage />} />
+        <Route path="/visualise" element={<VideoVisualisePage />} />
       </Routes>
       <BottomBar />
     </BrowserRouter>
