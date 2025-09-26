@@ -9,6 +9,7 @@ import BottomBar from "./components/BottomBar.tsx";
 import QuizPage from "./pages/Quizpage.tsx";
 import LoginPage from "./pages/LoginPage.tsx";
 import OnboardingPage from "./pages/OnboardingPage.tsx";
+import VideoVisualisePage from "./pages/VideoVisualisePage.tsx";
 
 function App() {
   const location = useLocation();
@@ -24,6 +25,7 @@ function App() {
         <Route path="/quiz" element={<QuizPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/onboarding" element={<OnboardingPage />} />
+        <Route path="/visualise" element={<VideoVisualisePage />} />
       </Routes>
       {!hideBottomBar && <BottomBar />}
     </>

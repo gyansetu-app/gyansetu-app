@@ -1,32 +1,53 @@
-import { Home, Trophy } from "lucide-react";
+import { Home, Trophy, VideoIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link, useLocation } from "react-router-dom";
 import MascotDialog from "./MascotDialog";
 
-
 export default function BottomBar() {
   const location = useLocation();
   const active =
-    location.pathname === "/" ? "home" :
-      location.pathname === "/leaderboard" ? "leaders" :
-        "";
+    location.pathname === "/"
+      ? "home"
+      : location.pathname === "/leaderboard"
+      ? "leaders"
+      : location.pathname === "/visualise"
+      ? "visualise"
+      : "";
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-background border-t-2 max-h-20 border-border shadow-shadow px-10 py-3 flex items-center justify-center gap-13">
-      <Link to="/">{active === "home" ? (
-        <Button variant="noShadow">
-          <Home className="!size-6" />
-          Home
-        </Button>
-      ) : (
-        <Button variant="transparent">
-          <Home className="!size-6" />
-          Home
-        </Button>
-      )}
+    <div className="fixed bottom-0 left-0 right-0 bg-background border-t-2 border-border shadow-shadow px-6 py-3 flex items-end justify-between">
+      <Link to="/">
+        {active === "home" ? (
+          <Button variant="noShadow">
+            <Home className="!size-6" />
+            Home
+          </Button>
+        ) : (
+          <Button variant="transparent">
+            <Home className="!size-6" />
+            Home
+          </Button>
+        )}
       </Link>
 
-      <MascotDialog />
+      {/* Center section with mascot and visualise button stacked */}
+      <div className="flex flex-col items-center gap-1">
+        <MascotDialog />
+        <Link to={"/visualise"}>
+          {active === "visualise" ? (
+            <Button variant="noShadow" size="sm" className="text-xs px-2">
+              <VideoIcon className="!size-3" />
+              Visualise
+            </Button>
+          ) : (
+            <Button variant="transparent" size="sm" className="text-xs px-2">
+              <VideoIcon className="!size-3" />
+              Visualise
+            </Button>
+          )}
+        </Link>
+      </div>
+
       <Link to="/leaderboard">
         {active === "leaders" ? (
           <Button variant="noShadow">
@@ -38,10 +59,8 @@ export default function BottomBar() {
             <Trophy className="!size-6" />
             Leaders
           </Button>
-
         )}
       </Link>
-
     </div>
   );
 }
