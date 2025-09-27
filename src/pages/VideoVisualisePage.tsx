@@ -20,13 +20,16 @@ const VideoVisualisePage = () => {
     setVideoTitle(concept);
 
     try {
-      const response = await fetch("http://localhost:8000/generate", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ prompt: concept }),
-      });
+      const response = await fetch(
+        "https://gyansetu-app.onrender.com/generate",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ prompt: concept }),
+        }
+      );
 
       const result = await response.json();
 
