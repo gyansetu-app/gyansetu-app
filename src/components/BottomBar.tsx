@@ -10,8 +10,6 @@ export default function BottomBar() {
       ? "home"
       : location.pathname === "/leaderboard"
       ? "leaders"
-      : location.pathname === "/visualise"
-      ? "visualise"
       : "";
 
   return (
@@ -33,19 +31,6 @@ export default function BottomBar() {
       {/* Center section with mascot and visualise button stacked */}
       <div className="flex flex-col items-center gap-1">
         <MascotDialog />
-        <Link to={"/visualise"}>
-          {active === "visualise" ? (
-            <Button variant="noShadow" size="sm" className="text-xs px-2">
-              <VideoIcon className="!size-3" />
-              Visualise
-            </Button>
-          ) : (
-            <Button variant="transparent" size="sm" className="text-xs px-2">
-              <VideoIcon className="!size-3" />
-              Visualise
-            </Button>
-          )}
-        </Link>
       </div>
 
       <Link to="/leaderboard">

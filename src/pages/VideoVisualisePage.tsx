@@ -5,13 +5,7 @@ import TopBar from "@/components/TopBar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
-import {
-  Video,
-  Sparkles,
-  Brain,
-  Lightbulb,
-  Zap,
-} from "lucide-react";
+import { Video, Sparkles, Brain, Lightbulb, Zap } from "lucide-react";
 
 const VideoVisualisePage = () => {
   const [concept, setConcept] = useState("");
@@ -55,10 +49,10 @@ const VideoVisualisePage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen  bg-background">
       <TopBar />
 
-      <main className="flex flex-col px-4 pb-20">
+      <main className="flex flex-col mt-5 px-4 pb-20">
         {/* Header Section */}
         <div className="text-center mb-6">
           <h1 className="text-3xl font-heading text-main mb-2">

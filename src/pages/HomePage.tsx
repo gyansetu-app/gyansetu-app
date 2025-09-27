@@ -8,9 +8,9 @@ import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 
-import learnImg from "/homePage/learn.png";
-import gamesImg from "/homePage/games.png";
-import rankImg from "/homePage/leaderboard.png";
+import learnImg from "/learn_illustration.png";
+import gamesImg from "/quiz_illustration.png";
+import rankImg from "/visualize_illustration.png";
 
 export default function HomePage() {
   const navigate = useNavigate();
@@ -19,7 +19,7 @@ export default function HomePage() {
   const buttons = [
     { id: 1, img: learnImg, label: "Learn", route: "/learn" },
     { id: 2, img: gamesImg, label: "Quiz", route: "/quiz" },
-    { id: 3, img: rankImg, label: "Shop", route: "/shop" },
+    { id: 3, img: rankImg, label: "Visualize", route: "/visualise" },
   ];
 
   const modules = [
