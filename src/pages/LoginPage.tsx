@@ -11,12 +11,14 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useNavigate } from "react-router-dom";
 
 function LoginCard() {
+  const navigate = useNavigate();
   return (
     <Card className="w-full max-w-sm">
       <CardHeader>
-        <CardTitle>Login to your account</CardTitle>
+        <CardTitle>Login to your GyanSetu account</CardTitle>
         <CardDescription>
           Enter your email below to login to your account
         </CardDescription>
@@ -49,7 +51,13 @@ function LoginCard() {
         </form>
       </CardContent>
       <CardFooter className="flex-col gap-2">
-        <Button type="submit" className="w-full">
+        {/* Navigate to onboarding */}
+
+        <Button
+          type="submit"
+          className="w-full"
+          onClick={() => navigate("/onboarding")}
+        >
           Login
         </Button>
         <Button variant="neutral" className="w-full">
@@ -69,7 +77,9 @@ function LoginCard() {
 function LoginPage() {
   return (
     <>
-      <LoginCard />
+      <div className="flex items-center justify-center min-h-screen bg-gradient-to-b from-amber-50 to-amber-100 p-4">
+        <LoginCard />
+      </div>
     </>
   );
 }
