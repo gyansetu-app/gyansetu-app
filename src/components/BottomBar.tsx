@@ -13,7 +13,7 @@ export default function BottomBar() {
       : "";
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-background border-t-2 border-border shadow-shadow px-6 py-3 flex items-end justify-between">
+    <div className="fixed bottom-0 left-0 right-0 z-50 bg-background border-t-2 border-border shadow-shadow px-6 py-3 flex items-end justify-between">
       <Link to="/">
         {active === "home" ? (
           <Button variant="noShadow">

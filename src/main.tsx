@@ -11,6 +11,9 @@ import LoginPage from "./pages/LoginPage.tsx";
 import OnboardingPage from "./pages/OnboardingPage.tsx";
 import VideoVisualisePage from "./pages/VideoVisualisePage.tsx";
 import ChapterProgress from "./pages/ChapterProgress.tsx";
+import ChemistryPage from "./pages/Subjects/ChemistryPage.tsx";
+import MathPage from "./pages/Subjects/MathPage.tsx";
+import PhysicsPage from "./pages/Subjects/PhysicsPage.tsx";
 
 function App() {
   const location = useLocation();
@@ -28,6 +31,9 @@ function App() {
         <Route path="/onboarding" element={<OnboardingPage />} />
         <Route path="/visualise" element={<VideoVisualisePage />} />
         <Route path="/learn/progress" element={<ChapterProgress />} />
+        <Route path="/learn/physics" element={<PhysicsPage />} />
+        <Route path="/learn/chemistry" element={<ChemistryPage />} />
+        <Route path="/learn/maths" element={<MathPage />} />
       </Routes>
       {!hideBottomBar && <BottomBar />}
     </>
