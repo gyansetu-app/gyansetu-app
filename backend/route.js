@@ -11,7 +11,7 @@ import { dirname } from "path";
 dotenv.config();
 
 const ai = new GoogleGenAI({
-  apiKey: process.env.GEMINI_API_KEY!,
+  apiKey: process.env.GEMINI_API_KEY,
 });
 
 const app = express();
@@ -66,7 +66,7 @@ Do NOT wrap it in triple backticks or include any markdown formatting.
 
     const generatedText = response.text;
 
-    fs.writeFileSync("generated_script.py", generatedText!);
+    fs.writeFileSync("generated_script.py", generatedText);
 
     const command = `manim -pql generated_script.py BasicScene`;
     console.log("Running:", command);
