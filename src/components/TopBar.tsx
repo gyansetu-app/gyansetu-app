@@ -3,16 +3,17 @@ import { Flame, Coins } from "lucide-react";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "./ui/button";
 import CalendarDemo from "./home/StreakCalendar";
-
+import { useNavigate } from "react-router-dom";
 export default function TopBar() {
   const [showCalendar, setShowCalendar] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <div className="relative">
       {/* Top bar */}
-      <div className="flex items-center justify-between bg-white px-4 py-2 shadow-shadow mb-5 sticky top-0 z-20">
+      <div className="flex items-center justify-between bg-white px-4 py-2 shadow-shadow  sticky top-0 z-20">
         <div className="flex items-center gap-3">
-          <Avatar className="w-8 h-8">
+          <Avatar className="w-8 h-8" onClick={() => navigate("/login")}>
             <AvatarImage
               src="https://avataaars.io/?avatarStyle=Transparent&topType=LongHairStraight&accessoriesType=Blank&hairColor=BrownDark&facialHairType=Blank&clotheType=BlazerShirt&eyeType=Default&eyebrowType=Default&mouthType=Default&skinColor=Light"
               alt="Profile"
@@ -40,9 +41,7 @@ export default function TopBar() {
       </div>
 
       {/* Calendar dropdown */}
-      {showCalendar && (
-        <CalendarDemo />
-      )}
+      {showCalendar && <CalendarDemo />}
     </div>
   );
 }

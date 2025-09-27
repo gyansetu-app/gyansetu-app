@@ -1,4 +1,4 @@
-import { Home, Trophy, VideoIcon } from "lucide-react";
+import { Home, Trophy } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link, useLocation } from "react-router-dom";
 import MascotDialog from "./MascotDialog";
@@ -10,12 +10,10 @@ export default function BottomBar() {
       ? "home"
       : location.pathname === "/leaderboard"
       ? "leaders"
-      : location.pathname === "/visualise"
-      ? "visualise"
       : "";
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-background border-t-2 border-border shadow-shadow px-6 py-3 flex items-end justify-between">
+    <div className="fixed bottom-0 left-0 right-0 z-50 bg-background border-t-2 border-border shadow-shadow px-6 py-3 flex items-end justify-between">
       <Link to="/">
         {active === "home" ? (
           <Button variant="noShadow">
@@ -33,19 +31,6 @@ export default function BottomBar() {
       {/* Center section with mascot and visualise button stacked */}
       <div className="flex flex-col items-center gap-1">
         <MascotDialog />
-        <Link to={"/visualise"}>
-          {active === "visualise" ? (
-            <Button variant="noShadow" size="sm" className="text-xs px-2">
-              <VideoIcon className="!size-3" />
-              Visualise
-            </Button>
-          ) : (
-            <Button variant="transparent" size="sm" className="text-xs px-2">
-              <VideoIcon className="!size-3" />
-              Visualise
-            </Button>
-          )}
-        </Link>
       </div>
 
       <Link to="/leaderboard">
