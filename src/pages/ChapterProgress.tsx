@@ -15,7 +15,7 @@ export default function ChapterProgress() {
   const queryParams = new URLSearchParams(location.search);
   const chapter = queryParams.get("chapter") || "Laws of Reflection"; // fallback
   const module = queryParams.get("module") || "Light and Optics";
-  const progress = queryParams.get("progress") || 72;
+  const progress = parseInt(queryParams.get("progress") || "72", 10);
   const imgurl =
     queryParams.get("imgurl") ||
     "https://i.pinimg.com/736x/9f/cf/03/9fcf03460710d991aa56fe671f3e0d58.jpg";
