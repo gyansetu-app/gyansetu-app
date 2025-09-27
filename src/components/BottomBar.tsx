@@ -1,4 +1,4 @@
-import { Home, Trophy, VideoIcon } from "lucide-react";
+import { Home, Trophy } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link, useLocation } from "react-router-dom";
 import MascotDialog from "./MascotDialog";

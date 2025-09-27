@@ -88,7 +88,7 @@ export default function HomePage() {
               alt="corner gif"
               className="absolute bottom-15 right-14 w-24 h-24"
               initial={{ opacity: 0, scale: 3 }}
-              animate={{ opacity: 1, scale: 4 }}
+              animate={{ opacity: 1, scale: 2.5 }}
               exit={{ opacity: 0, scale: 0.8 }}
               transition={{ duration: 0.4 }}
             />

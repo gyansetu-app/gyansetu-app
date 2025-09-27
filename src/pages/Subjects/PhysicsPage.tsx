@@ -52,67 +52,85 @@ export default function PhysicsPage() {
   return (
     <>
       <TopBar />
-      <div className="relative h-screen w-screen flex flex-col items-start justify-start">
+      <div className="relative min-h-screen w-full flex flex-col items-start justify-start overflow-x-hidden">
         <div className="absolute inset-0 bg-[url('/physics_background.png')] bg-cover bg-center opacity-30"></div>
+
         <p className="relative text-3xl text-(--main-foreground) mx-3 mt-5 z-10">
           Physics at a Glance
         </p>
-        {/* 4 Button grid */}
-        {/* top buttons */}
-        <div className="flex px-2 mb-3 mt-4 gap-2 z-20 w-95 mx-4 items-center">
+
+        {/* Buttons grid */}
+        <div className="flex flex-row flex-nowrap gap-3 z-20 w-full px-4 mt-6 overflow-x-auto">
           {buttons.map((button) => (
             <div
               key={button.id}
-              className="flex flex-col items-center basis-1/3 cursor-pointer"
+              className="flex flex-col items-center flex-shrink-0 w-28 cursor-pointer"
             >
               <Card
                 className="w-full aspect-square overflow-hidden bg-cover bg-center"
                 style={{ backgroundImage: `url(${button.img})` }}
               />
-              <p className="mt-2 text-lg font-medium">{button.label}</p>
+              <p className="mt-2 text-lg font-medium text-center">
+                {button.label}
+              </p>
             </div>
           ))}
         </div>
-        <p className="text-2xl mx-5 z-10">Assigned Modules</p>
-        <div className=" relative z-10 mt-3 mx-5 mb-10">
+
+        <p className="text-2xl mx-5 mt-6 z-10">Assigned Modules</p>
+        <div className="relative z-10 mt-3 px-5 mb-10 w-full max-w-2xl">
           {topics.map((topic) => (
-            // Set max height to 40
             <Card
-              className="mt-3 w-110 bg-white max-h-40"
-              // navigate to /learn/progress
-              onClick={() => navigate("/learn/progress")}
+              key={topic.id}
+              className="mt-3 w-full bg-white max-h-40"
+              onClick={() =>
+                navigate(
+                  "/learn/progress?chapter=" +
+                    topic.title +
+                    "&module=" +
+                    topic.module +
+                    "&progress=" +
+                    topic.progress +
+                    "&imgurl=" +
+                    topic.image
+                )
+              }
             >
               <CardContent>
                 <div className="flex flex-col">
-                  <div className="flex">
+                  <div className="flex items-center">
                     <Avatar>
                       <AvatarImage src={topic.image} />
                       <AvatarFallback>TR</AvatarFallback>
                     </Avatar>
-                    <div className="ml-3 mr-1 flex flex-col">
-                      <p className="ml-3">{topic.title}</p>
-                      <p className="ml-3">
+                    <div className="ml-3 flex flex-col">
+                      <p>{topic.title}</p>
+                      <p>
                         Module:{" "}
-                        <span className="font-normal"> {topic.module}</span>
+                        <span className="font-normal">{topic.module}</span>
                       </p>
                     </div>
                   </div>
-                  <div className="flex justify-between mt-3">
-                    <p className="text-xs relative text-(--chart-3)">
-                      {topic.progress}% completed
-                    </p>
+
+                  {/* Progress + Button row */}
+                  <div className="flex justify-between items-center mt-3 gap-3">
+                    <div className="flex-1">
+                      <p className="text-xs text-(--chart-3)">
+                        {topic.progress}% completed
+                      </p>
+                      <Progress value={topic.progress} className="w-full" />
+                    </div>
+                    <Button className="w-14 h-14 flex items-center justify-center">
+                      <Play className="!size-4" />
+                    </Button>
                   </div>
-                  <Progress value={topic.progress} className="" />
-                  <Button className=" relative w-14 h-14 left-86 -top-26">
-                    <Play className="!size-4" />
-                  </Button>
                 </div>
               </CardContent>
             </Card>
           ))}
         </div>
       </div>
-      <p className="mt-25">Hello</p>
+      <p className="mt-10 text-center">Hello</p>
     </>
   );
 }

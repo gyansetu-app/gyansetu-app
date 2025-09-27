@@ -7,9 +7,18 @@ import { Card, CardContent } from "@/components/ui/card";
 import { AvatarFallback, AvatarImage, Avatar } from "@/components/ui/avatar";
 import { Progress } from "@/components/ui/progress";
 import { Book, Play, Gamepad } from "lucide-react"; // import lucide icons
+import { useLocation } from "react-router-dom";
 
 export default function ChapterProgress() {
   const [loading, setLoading] = useState(true);
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const chapter = queryParams.get("chapter") || "Laws of Reflection"; // fallback
+  const module = queryParams.get("module") || "Light and Optics";
+  const progress = queryParams.get("progress") || 72;
+  const imgurl =
+    queryParams.get("imgurl") ||
+    "https://i.pinimg.com/736x/9f/cf/03/9fcf03460710d991aa56fe671f3e0d58.jpg";
 
   // Simulated loading
   useEffect(() => {
@@ -94,11 +103,11 @@ export default function ChapterProgress() {
             className="absolute bottom-35 left-2 w-40 h-40 z-10"
           />
 
-          <Card className="absolute bg-main bottom-80 left-4 w-45  shadow-lg ">
+          <Card className="absolute bg-main bottom-75 left-4 w-45  shadow-lg ">
             <CardContent>
               <p className="text-sm font-medium">
                 <span className="font-semibold">
-                  You may want to revise Stone 2: Laws of Reflections!
+                  You may want to revise Stone 2: {chapter}
                 </span>
               </p>
             </CardContent>
@@ -140,26 +149,23 @@ export default function ChapterProgress() {
                     <div className="flex flex-col">
                       <div className="flex">
                         <Avatar>
-                          <AvatarImage src="https://i.pinimg.com/736x/9f/cf/03/9fcf03460710d991aa56fe671f3e0d58.jpg" />
+                          <AvatarImage src={imgurl} />
                           <AvatarFallback>TR</AvatarFallback>
                         </Avatar>
                         <div className="ml-3 mr-1 flex flex-col">
-                          <p className="ml-3">Light and Optics</p>
+                          <p className="ml-3">{chapter}</p>
                           <p className="ml-3">
-                            Teacher:{" "}
-                            <span className="font-normal">Mr. Ram Govind</span>
+                            Module:{" "}
+                            <span className="font-normal">{module}</span>
                           </p>
                         </div>
                       </div>
                       <div className="flex justify-between mt-3">
                         <p className="text-xs relative text-(--chart-3)">
-                          Stone 26 - 80% completed
-                        </p>
-                        <p className="text-xs relative text-(--chart-3)">
-                          30 Stones
+                          {progress}% completed
                         </p>
                       </div>
-                      <Progress value={80} className="" />
+                      <Progress value={progress} className="" />
                     </div>
                   </CardContent>
                 </Card>
