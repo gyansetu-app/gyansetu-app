@@ -50,12 +50,12 @@ app.post("/generate", async (req, res) => {
 Generate a simple, beginner-friendly Manim Community v0.19 code example.
 Topic: ${prompt}
 
-Requirements:
-- Use only Scene, Text, and simple animations like FadeIn/FadeOut or Write.
-- No advanced camera movements, no MarkupText, no complex VGroups.
-- The code must run without any errors.
-- Output only the Python code in a single class named BasicScene.
-- Make sure it is compatible with: manim -pql file.py BasicScene
+- Requirements:
+- - Use only Scene, Text, and simple animations like FadeIn/FadeOut or Write.
++ Requirements:
++ - Use only Scene, Text, and simple animations like FadeIn/FadeOut or Write.
++ - Do NOT use MathTex, Tex, or any LaTeX-based classes.
++ - Use Text for all content, including math expressions (write them as plain text).
 
 Output ONLY valid Python code.
 Do NOT wrap it in triple backticks or include any markdown formatting.
