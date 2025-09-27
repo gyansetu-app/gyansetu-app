@@ -10,6 +10,7 @@ import QuizPage from "./pages/Quizpage.tsx";
 import LoginPage from "./pages/LoginPage.tsx";
 import OnboardingPage from "./pages/OnboardingPage.tsx";
 import VideoVisualisePage from "./pages/VideoVisualisePage.tsx";
+import ChapterProgress from "./pages/ChapterProgress.tsx";
 
 function App() {
   const location = useLocation();
@@ -26,6 +27,7 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/onboarding" element={<OnboardingPage />} />
         <Route path="/visualise" element={<VideoVisualisePage />} />
+        <Route path="/learn/progress" element={<ChapterProgress />} />
       </Routes>
       {!hideBottomBar && <BottomBar />}
     </>

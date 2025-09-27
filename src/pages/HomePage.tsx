@@ -52,6 +52,7 @@ export default function HomePage() {
   return (
     <div className="relative">
       {/* Animated Overlay */}
+
       <AnimatePresence>
         {showOverlay && (
           <motion.div
@@ -61,6 +62,7 @@ export default function HomePage() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.4 }}
           >
+            {/* Dialog Box */}
             <motion.div
               className="bg-white/90 p-6 rounded-xl shadow-xl text-center max-w-md mx-4"
               initial={{ y: -40, opacity: 0 }}
@@ -75,12 +77,23 @@ export default function HomePage() {
                 Next
               </Button>
             </motion.div>
+
+            {/* Bottom-left GIF */}
+            <motion.img
+              src="mascots/waving_mascot.gif" // place your GIF inside /public
+              alt="corner gif"
+              className="absolute bottom-19 right-19 w-24 h-24"
+              initial={{ opacity: 0, scale: 4 }}
+              animate={{ opacity: 1, scale: 5 }}
+              exit={{ opacity: 0, scale: 0.8 }}
+              transition={{ duration: 0.4 }}
+            />
           </motion.div>
         )}
       </AnimatePresence>
 
       <TopBar />
-      <div className="flex flex-col px-2">
+      <div className="flex flex-col px-2 mt-5">
         {/* top buttons */}
         <div className="flex px-2 mb-3 gap-2">
           {buttons.map((button) => (

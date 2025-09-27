@@ -11,7 +11,7 @@ export default function TopBar() {
   return (
     <div className="relative">
       {/* Top bar */}
-      <div className="flex items-center justify-between bg-white px-4 py-2 shadow-shadow mb-5 sticky top-0 z-20">
+      <div className="flex items-center justify-between bg-white px-4 py-2 shadow-shadow  sticky top-0 z-20">
         <div className="flex items-center gap-3">
           <Avatar className="w-8 h-8" onClick={() => navigate("/login")}>
             <AvatarImage
