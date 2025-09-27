@@ -1,45 +1,68 @@
-from manim import *
+from manim import Scene, Text, FadeIn, Write, FadeOut, AnimationGroup, LaggedStart, UP, DOWN, ORIGIN
 
 class BasicScene(Scene):
     def construct(self):
-        # 1. Introduce the topic: Pythagorean Theorem
-        title = Text("Pythagorean Theorem", font_size=60)
+        # 1. Title of the theorem
+        title = Text("Pythagoras Theorem", font_size=50)
+        title.to_edge(UP)
         self.play(Write(title))
-        self.wait(1.5)
-        self.play(FadeOut(title))
-        self.wait(0.5)
-
-        # 2. Display the formula
-        formula_text = Text("a² + b² = c²", font_size=72)
-        self.play(Write(formula_text))
-        self.wait(2)
-
-        # 3. Explain the context of the formula
-        context_intro = Text("This formula applies to:", font_size=40).next_to(formula_text, DOWN, buff=1.0)
-        self.play(FadeIn(context_intro))
         self.wait(1)
 
-        triangle_type = Text("A RIGHT-ANGLED TRIANGLE", font_size=48, color=YELLOW).next_to(context_intro, DOWN, buff=0.4)
-        self.play(FadeIn(triangle_type))
+        # 2. Introduction to what it explains
+        intro_text_1 = Text("This theorem explains a fundamental relationship", font_size=30)
+        intro_text_2 = Text("within a RIGHT-ANGLED triangle.", font_size=30)
+
+        intro_text_1.next_to(title, DOWN, buff=0.8)
+        intro_text_2.next_to(intro_text_1, DOWN, buff=0.3)
+
+        self.play(FadeIn(intro_text_1))
+        self.play(FadeIn(intro_text_2))
         self.wait(1.5)
 
-        # 4. Explain what 'a', 'b', and 'c' represent
-        ab_explain = Text("where 'a' and 'b' are the lengths of the two shorter sides (legs).", font_size=36).next_to(triangle_type, DOWN, buff=0.8)
-        self.play(FadeIn(ab_explain))
+        # 3. Present the formula
+        theorem_formula = Text("a² + b² = c²", font_size=60)
+        theorem_formula.move_to(ORIGIN) # Center the formula
+        self.play(Write(theorem_formula))
         self.wait(2)
 
-        c_explain = Text("And 'c' is the length of the longest side (hypotenuse).", font_size=36).next_to(ab_explain, DOWN, buff=0.4)
-        self.play(FadeIn(c_explain))
+        # 4. Explain the components of the formula
+        explanation_a_b = Text("Where 'a' and 'b' are the lengths of the two shorter sides", font_size=28)
+        explanation_c = Text("And 'c' is the length of the hypotenuse (the longest side)", font_size=28)
+
+        explanation_a_b.next_to(theorem_formula, DOWN, buff=0.8)
+        explanation_c.next_to(explanation_a_b, DOWN, buff=0.3)
+
+        self.play(
+            FadeIn(explanation_a_b),
+            FadeIn(explanation_c)
+        )
         self.wait(3)
 
-        # 5. Fade out all the current text
-        all_elements = VGroup(formula_text, context_intro, triangle_type, ab_explain, c_explain)
-        self.play(FadeOut(all_elements))
-        self.wait(1)
+        # 5. A simple summary
+        summary_text_1 = Text("In essence: The square of the two shorter sides,", font_size=25)
+        summary_text_2 = Text("when added, equals the square of the longest side.", font_size=25)
 
-        # Optional: A concluding remark
-        conclusion = Text("Essential for geometry and trigonometry!", font_size=48)
-        self.play(Write(conclusion))
-        self.wait(2)
-        self.play(FadeOut(conclusion))
-        self.wait(0.5)
+        summary_text_1.next_to(explanation_c, DOWN, buff=1)
+        summary_text_2.next_to(summary_text_1, DOWN, buff=0.2)
+
+        self.play(
+            LaggedStart(
+                FadeIn(summary_text_1),
+                FadeIn(summary_text_2),
+                lag_ratio=0.7 # Make them appear slightly after each other
+            )
+        )
+        self.wait(3)
+
+        # 6. Fade out all elements
+        self.play(
+            FadeOut(title),
+            FadeOut(intro_text_1),
+            FadeOut(intro_text_2),
+            FadeOut(theorem_formula),
+            FadeOut(explanation_a_b),
+            FadeOut(explanation_c),
+            FadeOut(summary_text_1),
+            FadeOut(summary_text_2)
+        )
+        self.wait(1)
