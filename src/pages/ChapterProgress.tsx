@@ -93,6 +93,16 @@ export default function ChapterProgress() {
             alt="animation"
             className="absolute bottom-35 left-2 w-40 h-40 z-10"
           />
+
+          <Card className="absolute bg-main bottom-80 left-4 w-45  shadow-lg ">
+            <CardContent>
+              <p className="text-sm font-medium">
+                <span className="font-semibold">
+                  You may want to revise Stone 2: Laws of Reflections!
+                </span>
+              </p>
+            </CardContent>
+          </Card>
           <AnimatePresence>
             {loading ? (
               <motion.div
@@ -159,8 +169,7 @@ export default function ChapterProgress() {
                 {[...checkpoints].reverse().map((cp, index) => (
                   <motion.div
                     key={cp.id}
-                    // if status is done, make it green, if revise make it red else yellow
-                    className={`absolute p-3 rounded-full border-2 border-white hover:grow-10 cursor-pointer shadow-lg ${
+                    className={`absolute p-3 rounded-full border-2 border-white cursor-pointer shadow-lg flex items-center justify-center ${
                       cp.status === "done"
                         ? "bg-(--chart-4)"
                         : cp.status === "revise"
@@ -172,9 +181,21 @@ export default function ChapterProgress() {
                     style={{ top: `${cp.top}%`, left: `${cp.left}%` }}
                     whileTap={{ scale: 0.95 }}
                     initial={{ opacity: 0, scale: 0 }}
-                    // If the point is todo then make it pulse
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 0.3 * index, duration: 0.5 }}
+                    animate={
+                      cp.status === "todo"
+                        ? { opacity: 1, scale: [1, 1.2, 1] } // pulsing
+                        : { opacity: 1, scale: 1 } // normal
+                    }
+                    transition={
+                      cp.status === "todo"
+                        ? {
+                            delay: 0.3 * index,
+                            duration: 1.5,
+                            repeat: Infinity,
+                            repeatType: "loop",
+                          }
+                        : { delay: 0.3 * index, duration: 0.5 }
+                    }
                     onClick={() => alert(`You clicked ${cp.label}`)}
                   >
                     {getIcon(cp.type)}
