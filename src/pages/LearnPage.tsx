@@ -150,7 +150,7 @@ const LearnPage = () => {
             </div>
           </div>
         </div>
-        <p className="mt-15">TRes</p>
+        <p className="mt-35">TRes</p>
       </main>
     </>
   );

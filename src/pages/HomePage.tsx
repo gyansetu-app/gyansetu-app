@@ -70,9 +70,13 @@ export default function HomePage() {
               exit={{ y: 40, opacity: 0 }}
               transition={{ duration: 0.5, type: "spring" }}
             >
-              <h1 className="text-2xl font-bold mb-4">
-                Welcome to your new home
-              </h1>
+              <h1 className="text-2xl font-bold mb-4">New Streak Achieved!</h1>
+              <p>You have been logging in daily for 10 days!</p>
+              <img
+                src="/home/streak_achievement.png"
+                alt="celebration"
+                className="mx-auto my-4 rounded-[40px]"
+              />
               <Button size="lg" onClick={() => setShowOverlay(false)}>
                 Next
               </Button>
@@ -82,9 +86,9 @@ export default function HomePage() {
             <motion.img
               src="mascots/waving_mascot.gif" // place your GIF inside /public
               alt="corner gif"
-              className="absolute bottom-19 right-19 w-24 h-24"
-              initial={{ opacity: 0, scale: 4 }}
-              animate={{ opacity: 1, scale: 5 }}
+              className="absolute bottom-15 right-14 w-24 h-24"
+              initial={{ opacity: 0, scale: 3 }}
+              animate={{ opacity: 1, scale: 4 }}
               exit={{ opacity: 0, scale: 0.8 }}
               transition={{ duration: 0.4 }}
             />
