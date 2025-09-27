@@ -35,7 +35,7 @@ const VideoVisualisePage = () => {
 
       if (response.ok && result.success) {
         // Video is generated, use the path returned from backend
-        const videoUrl = `http://localhost:8000${result.videoPath}`;
+        const videoUrl = `https://gyansetu-app.onrender.com${result.videoPath}`;
         setGeneratedVideo(videoUrl);
       } else {
         console.error("Video generation failed:", result.error);
