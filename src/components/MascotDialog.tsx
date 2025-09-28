@@ -6,21 +6,12 @@ import {
   Dialog,
   DialogClose,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import {
-  Sparkles,
-  Mic,
-  Square,
-  Send,
-  Volume2,
-  Copy,
-  RotateCcw,
-} from "lucide-react";
+import { Sparkles, Mic, Square, Volume2, Copy } from "lucide-react";
 import Lottie from "lottie-react";
 import mascotAnimation from "@/assets/Smiling Owl.json";
 
@@ -121,9 +112,9 @@ function Dictaphone({
   const [loading, setLoading] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState<string>("en-IN");
   const [recordingTime, setRecordingTime] = useState(0);
-  const [isHolding, setIsHolding] = useState(false);
+  const [, setIsHolding] = useState(false);
   const recordingInterval = useRef<NodeJS.Timeout | null>(null);
-  const holdTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  // const holdTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     if (recording) {
@@ -261,10 +252,10 @@ function Dictaphone({
     }
   }
 
-  const resetRecording = () => {
-    setAudioBlob(null);
-    setRecordingTime(0);
-  };
+  // const resetRecording = () => {
+  //   setAudioBlob(null);
+  //   setRecordingTime(0);
+  // };
 
   // Notify parent component of loading state changes
   useEffect(() => {

@@ -17,6 +17,7 @@ import PhysicsPage from "./pages/Subjects/PhysicsPage.tsx";
 import OfflineBanner from "./components/OfflineBanner.tsx";
 import "./i18n";
 import SettingsPage from "./pages/SettingsPage.tsx";
+import ChemistryChapterList from "./pages/Subjects/ChemistryChapterList.tsx";
 
 function App() {
   const location = useLocation();
@@ -37,6 +38,10 @@ function App() {
         <Route path="/learn/progress" element={<ChapterProgress />} />
         <Route path="/learn/physics" element={<PhysicsPage />} />
         <Route path="/learn/chemistry" element={<ChemistryPage />} />
+        <Route
+          path="/learn/chemistry/chapters"
+          element={<ChemistryChapterList />}
+        />
         <Route path="/learn/maths" element={<MathPage />} />
         <Route path="/settings" element={<SettingsPage />} />
       </Routes>

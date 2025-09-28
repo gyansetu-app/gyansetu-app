@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Flame, Coins, Bell, ChevronDown, Settings } from "lucide-react";
+import { Flame, Bell, ChevronDown, Settings } from "lucide-react";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "./ui/button";
 import CalendarDemo from "./home/StreakCalendar";
@@ -87,11 +87,11 @@ export default function TopBar() {
               }`}
             />
           </Button>
-
+          {/* 
           <Button className="flex items-center gap-2 bg-secondary-background px-3 py-1.5 rounded-base border-2 border-border shadow-shadow hover:bg-secondary-background/80 transition-all">
             <Coins className="w-5 h-5 text-main" />
             <span className="font-medium text-base text-foreground">250</span>
-          </Button>
+          </Button> */}
 
           {/* Settings Button */}
           <Button

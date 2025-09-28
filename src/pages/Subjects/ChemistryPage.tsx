@@ -64,6 +64,9 @@ export default function ChemistryPage() {
             <div
               key={button.id}
               className="flex flex-col items-center flex-shrink-0 w-28 cursor-pointer"
+              onClick={() => {
+                navigate("/learn/chemistry/chapters");
+              }}
             >
               <Card
                 className="w-full aspect-square overflow-hidden bg-cover bg-center"
