@@ -14,6 +14,9 @@ import ChapterProgress from "./pages/ChapterProgress.tsx";
 import ChemistryPage from "./pages/Subjects/ChemistryPage.tsx";
 import MathPage from "./pages/Subjects/MathPage.tsx";
 import PhysicsPage from "./pages/Subjects/PhysicsPage.tsx";
+import OfflineBanner from "./components/OfflineBanner.tsx";
+import "./i18n";
+import SettingsPage from "./pages/SettingsPage.tsx";
 
 function App() {
   const location = useLocation();
@@ -22,6 +25,7 @@ function App() {
 
   return (
     <>
+      <OfflineBanner />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/learn" element={<LearnPage />} />
@@ -34,6 +38,7 @@ function App() {
         <Route path="/learn/physics" element={<PhysicsPage />} />
         <Route path="/learn/chemistry" element={<ChemistryPage />} />
         <Route path="/learn/maths" element={<MathPage />} />
+        <Route path="/settings" element={<SettingsPage />} />
       </Routes>
       {!hideBottomBar && <BottomBar />}
     </>

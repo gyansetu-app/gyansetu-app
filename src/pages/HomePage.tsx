@@ -11,15 +11,49 @@ import { motion, AnimatePresence } from "framer-motion";
 import learnImg from "/learn_illustration.png";
 import gamesImg from "/quiz_illustration.png";
 import rankImg from "/visualize_illustration.png";
+import { Avatar, AvatarImage } from "@/components/ui/avatar";
+import { useTranslation } from "react-i18next";
 
 export default function HomePage() {
   const navigate = useNavigate();
   const [showOverlay, setShowOverlay] = useState(true);
+  const { t } = useTranslation();
+
+  const peerlist = [
+    {
+      id: 1,
+      img: "https://avataaars.io/?avatarStyle=Transparent&topType=LongHairNotTooLong&accessoriesType=Blank&hairColor=BrownDark&facialHairType=Blank&clotheType=BlazerShirt&eyeType=Default&eyebrowType=Default&mouthType=Twinkle&skinColor=Brown",
+      online: true,
+    },
+    {
+      id: 2,
+      img: "https://www.shutterstock.com/image-photo/portrait-confident-young-boy-260nw-1700676295.jpg",
+      online: false,
+    },
+    {
+      id: 3,
+      img: "https://knot9prod.s3.amazonaws.com/thumbnails/021030/hover_021030017.jpg",
+      online: false,
+    },
+    {
+      id: 4,
+      img: "https://static.vecteezy.com/system/resources/previews/010/714/887/large_2x/stray-dog-on-a-floor-photo.jpg",
+      online: true,
+    },
+    {
+      id: 5,
+      img: "https://c.ndtvimg.com/2025-07/emtfht5o_student_160x120_15_July_25.jpg",
+    },
+    {
+      id: 6,
+      img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQXRloDEtT_J00hcfbYUy8brS7k6S9yWq8sXA&s",
+    },
+  ];
 
   const buttons = [
-    { id: 1, img: learnImg, label: "Learn", route: "/learn" },
-    { id: 2, img: gamesImg, label: "Quiz", route: "/quiz" },
-    { id: 3, img: rankImg, label: "Visualize", route: "/visualise" },
+    { id: 1, img: learnImg, label: t("Learn"), route: "/learn" },
+    { id: 2, img: gamesImg, label: t("Quiz"), route: "/quiz" },
+    { id: 3, img: rankImg, label: t("Visualize"), route: "/visualise" },
   ];
 
   const modules = [
@@ -70,8 +104,10 @@ export default function HomePage() {
               exit={{ y: 40, opacity: 0 }}
               transition={{ duration: 0.5, type: "spring" }}
             >
-              <h1 className="text-2xl font-bold mb-4">New Streak Achieved!</h1>
-              <p>You have been logging in daily for 10 days!</p>
+              <h1 className="text-2xl font-bold mb-4">
+                {t("New Streak Achieved!")}
+              </h1>
+              <p>{t("You have been logging in daily for 10 days!")}</p>
               <img
                 src="/home/streak_achievement.png"
                 alt="celebration"
@@ -118,7 +154,30 @@ export default function HomePage() {
         <GameCarousel />
 
         <div className="mt-6 mb-4 mx-2">
-          <h2 className="text-2xl font-semibold mb-4">Recent Modules</h2>
+          <p className="text-2xl font-semibold mb-4">{t("Your Peers")} </p>
+          <div className="flex overflow-x-auto gap-4 py-3 px-1">
+            {peerlist.map((peer) => (
+              <div
+                key={peer.id}
+                className="flex-shrink-0 w-20 h-20 rounded-full border-2 border-main overflow-hidden"
+              >
+                <Avatar className="w-full h-full md-5">
+                  <AvatarImage
+                    src={
+                      peer.img ||
+                      `https://avataaars.io/?avatarStyle=Circle&topType=LongHairNotTooLong&accessoriesType=Blank&hairColor=BrownDark&facialHairType=Blank&clotheType=BlazerShirt&eyeType=Default&eyebrowType=Default&mouthType=Twinkle&skinColor=Brown`
+                    }
+                    alt={`Peer ${peer.id}`}
+                    className="w-full h-full object-cover"
+                  />
+                </Avatar>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-6 mb-4 mx-2">
+          <h2 className="text-2xl font-semibold mb-4">{t("Recent Modules")}</h2>
           <div className="columns-2 gap-4 space-y-4">
             {modules.map((module, index) => (
               <Card

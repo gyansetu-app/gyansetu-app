@@ -2,8 +2,10 @@ import { Home, Trophy } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link, useLocation } from "react-router-dom";
 import MascotDialog from "./MascotDialog";
+import { useTranslation } from "react-i18next";
 
 export default function BottomBar() {
+  const { t } = useTranslation();
   const location = useLocation();
   const active =
     location.pathname === "/"
@@ -18,12 +20,12 @@ export default function BottomBar() {
         {active === "home" ? (
           <Button variant="noShadow">
             <Home className="!size-6" />
-            Home
+            {t("Home")}
           </Button>
         ) : (
           <Button variant="transparent">
             <Home className="!size-6" />
-            Home
+            {t("Home")}
           </Button>
         )}
       </Link>
@@ -37,12 +39,12 @@ export default function BottomBar() {
         {active === "leaders" ? (
           <Button variant="noShadow">
             <Trophy className="!size-6" />
-            Leaders
+            {t("Leaders")}
           </Button>
         ) : (
           <Button variant="transparent">
             <Trophy className="!size-6" />
-            Leaders
+            {t("Leaders")}
           </Button>
         )}
       </Link>

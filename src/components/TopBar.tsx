@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
-import { Flame, Coins, Bell, ChevronDown } from "lucide-react";
+import { Flame, Coins, Bell, ChevronDown, Settings } from "lucide-react";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "./ui/button";
 import CalendarDemo from "./home/StreakCalendar";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 export default function TopBar() {
+  const { t } = useTranslation();
   const [showCalendar, setShowCalendar] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
   const [animate, setAnimate] = useState(false);
@@ -39,17 +41,21 @@ export default function TopBar() {
             <div className="absolute -bottom-1 -right-1 w-4 h-4 bg-green-500 rounded-full border-2 border-white"></div>
           </div>
           <div className="flex flex-col items-start justify-center">
-            <span className="text-xs text-foreground font-medium">welcome</span>
-            <span className="text-lg font-heading text-main">student</span>
+            <span className="text-xs text-foreground font-medium">
+              {t("welcome")}
+            </span>
+            <span className="text-lg font-heading text-main">
+              {t("Student")}{" "}
+            </span>
           </div>
         </div>
 
         <div className="flex items-center gap-3">
           <Button
             variant="transparent"
-            size="sm"
+            size="icon"
             onClick={() => setShowNotifications(!showNotifications)}
-            className="relative p-1 hover:bg-secondary-background"
+            className="relative p-1 top-0.3  hover:bg-secondary-background"
           >
             <Bell className="w-5 h-5 text-main" />
             <span className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">
@@ -85,6 +91,16 @@ export default function TopBar() {
           <Button className="flex items-center gap-2 bg-secondary-background px-3 py-1.5 rounded-base border-2 border-border shadow-shadow hover:bg-secondary-background/80 transition-all">
             <Coins className="w-5 h-5 text-main" />
             <span className="font-medium text-base text-foreground">250</span>
+          </Button>
+
+          {/* Settings Button */}
+          <Button
+            variant="transparent"
+            size="icon"
+            onClick={() => navigate("/settings")}
+            className="p-1 top-0.3 hover:bg-secondary-background"
+          >
+            <Settings className="w-5 h-5 text-main" />
           </Button>
         </div>
       </div>
