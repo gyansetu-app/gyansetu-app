@@ -202,7 +202,6 @@ export default function ChapterProgress() {
                           }
                         : { delay: 0.3 * index, duration: 0.5 }
                     }
-                    onClick={() => alert(`You clicked ${cp.label}`)}
                   >
                     {getIcon(cp.type)}
                   </motion.div>
