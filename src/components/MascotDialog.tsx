@@ -6,14 +6,20 @@ import {
   Dialog,
   DialogClose,
   DialogContent,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Sparkles, Mic, Square, Volume2, Copy } from "lucide-react";
+import { Sparkles, Mic, Square, Volume2, } from "lucide-react";
 import Lottie from "lottie-react";
 import mascotAnimation from "@/assets/Smiling Owl.json";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "./ui/select";
 
 const SARVAM_KEY = import.meta.env.VITE_SARVAM_API_KEY as string;
 const STT_URL = "https://api.sarvam.ai/speech-to-text";
@@ -271,10 +277,25 @@ function Dictaphone({
     <div className="space-y-6">
       {/* Language Selection */}
       <div className="space-y-3">
-        <label className="block text-sm font-bold text-text">
-          🌍 Choose Your Language
-        </label>
-        <select
+        <Select
+          onValueChange={(value) => setSelectedLanguage(value)}
+          defaultValue={selectedLanguage}
+        >
+          <SelectTrigger className="w-[180px] mb-4">
+            <SelectValue placeholder="Select a Language" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectGroup>
+              <SelectLabel>Language</SelectLabel>
+              {LANGUAGES.map((lang) => (
+                <SelectItem key={lang.code} value={lang.code}>
+                  {lang.flag} {lang.name}
+                </SelectItem>
+              ))}
+            </SelectGroup>
+          </SelectContent>
+        </Select>
+        {/* <select
           value={selectedLanguage}
           onChange={(e) => setSelectedLanguage(e.target.value)}
           className="w-full px-4 py-3 border-4 border-black rounded-none bg-white text-black font-bold shadow-[4px_4px_0px_black] focus:shadow-[6px_6px_0px_black] focus:translate-x-[-2px] focus:translate-y-[-2px] transition-all"
@@ -284,7 +305,7 @@ function Dictaphone({
               {lang.flag} {lang.name}
             </option>
           ))}
-        </select>
+        </select> */}
       </div>
 
       {/* Recording Status */}
@@ -345,25 +366,6 @@ function Dictaphone({
           </Button>
 
           {/* Instruction Text */}
-          <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2 whitespace-nowrap">
-            <span className="text-sm font-bold text-gray-600">
-              {loading
-                ? "Thinking..."
-                : recording
-                ? "Release to Send"
-                : "Hold to Talk"}
-            </span>
-          </div>
-        </div>
-      </div>
-
-      <div className="text-center">
-        <div className="inline-block p-4 border-4 border-black bg-blue-100 shadow-[4px_4px_0px_black]">
-          <p className="font-bold text-black text-sm mb-1">💬 How to chat:</p>
-          <p className="text-xs text-gray-700">
-            Hold the mic button and speak, then release to send your message to
-            Buddy
-          </p>
         </div>
       </div>
     </div>
@@ -388,10 +390,6 @@ export default function MascotDialog() {
         .catch((err) => console.warn("Autoplay failed:", err));
     }
   }, [aiAudioUrl]);
-
-  const copyToClipboard = (text: string) => {
-    navigator.clipboard.writeText(text);
-  };
 
   const handleResponse = (userTranscript: string, response: string) => {
     setTranscript(userTranscript);
@@ -426,14 +424,9 @@ export default function MascotDialog() {
         </div>
       </DialogTrigger>
 
-      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto border-4 border-black bg-white rounded-none shadow-[8px_8px_0px_black]">
-        <DialogHeader className="text-center border-b-4 border-black pb-6 mb-6">
-          <DialogTitle className="text-3xl font-black text-black mb-2">
-            🦉 Ask Buddy
-          </DialogTitle>
-        </DialogHeader>
-
+      <DialogContent className="flex flex-col items-center overflow-y-auto bg-background shadow-shadow max-h-[80vh]">
         {/* Buddy Animation */}
+        <p className="font-bold text-3xl">Ask Buddy</p>
         <div className="flex justify-center mb-6">
           <div
             className={`relative p-4 border-4 border-black shadow-[6px_6px_0px_black] transition-colors ${
@@ -480,75 +473,62 @@ export default function MascotDialog() {
         />
 
         {/* Conversation Display */}
-        {(transcript || aiResponse) && (
-          <div className="space-y-4 mt-6 pt-6 border-t-4 border-black">
-            {transcript && (
-              <div className="border-4 border-black bg-blue-100 p-4 shadow-[4px_4px_0px_black]">
-                <div className="flex justify-between items-start mb-2">
-                  <h4 className="font-black text-black">💬 You said:</h4>
-                  <Button
-                    onClick={() => copyToClipboard(transcript)}
-                    className="h-8 w-8 p-0 border-2 border-black bg-white hover:bg-gray-100 shadow-[2px_2px_0px_black] hover:shadow-[3px_3px_0px_black] hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all rounded-none"
-                  >
-                    <Copy className="w-4 h-4 text-black" />
-                  </Button>
-                </div>
-                <p className="font-bold text-gray-800 italic">"{transcript}"</p>
-              </div>
-            )}
-
-            {aiResponse && (
-              <div className="border-4 border-black bg-green-100 p-4 shadow-[4px_4px_0px_black]">
-                <div className="flex justify-between items-start mb-2">
-                  <h4 className="font-black text-black">🦉 Buddy says:</h4>
-                  <Button
-                    onClick={() => copyToClipboard(aiResponse)}
-                    className="h-8 w-8 p-0 border-2 border-black bg-white hover:bg-gray-100 shadow-[2px_2px_0px_black] hover:shadow-[3px_3px_0px_black] hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all rounded-none"
-                  >
-                    <Copy className="w-4 h-4 text-black" />
-                  </Button>
-                </div>
-                <p className="font-bold text-gray-800 mb-4">{aiResponse}</p>
-
-                {aiAudioUrl && (
-                  <div className="border-2 border-black bg-white p-3 shadow-[2px_2px_0px_black]">
-                    <div className="flex items-center gap-3 mb-2">
-                      <Button
-                        onClick={playAudio}
-                        className="h-10 px-4 border-2 border-black bg-purple-300 hover:bg-purple-200 text-black font-bold shadow-[2px_2px_0px_black] hover:shadow-[3px_3px_0px_black] hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all rounded-none"
-                      >
-                        <Volume2 className="w-4 h-4 mr-1" />
-                        Play Audio
-                      </Button>
-                      {isPlaying && (
-                        <div className="flex items-center gap-1 font-bold text-green-600">
-                          <div className="w-2 h-2 bg-green-600 rounded-full animate-pulse"></div>
-                          Playing...
-                        </div>
-                      )}
-                    </div>
-                    <audio
-                      ref={audioRef}
-                      src={aiAudioUrl}
-                      controls
-                      onEnded={() => setIsPlaying(false)}
-                      onPause={() => setIsPlaying(false)}
-                      className="w-full h-10 border-2 border-black shadow-[2px_2px_0px_black]"
-                    />
+        <div className="flex-1 w-full overflow-y-auto px-2 mt-6">
+          {(transcript || aiResponse) && (
+            <div className="space-y-4 mt-6 pt-6 border-t-4 border-black">
+              {transcript && (
+                <div className="border-4 border-black bg-blue-100 p-4 shadow-[4px_4px_0px_black]">
+                  <div className="flex justify-between items-start mb-2">
+                    <h4 className="font-black text-black">💬 You said:</h4>
                   </div>
-                )}
-              </div>
-            )}
-          </div>
-        )}
+                  <p className="font-bold text-gray-800 italic">
+                    "{transcript}"
+                  </p>
+                </div>
+              )}
 
-        <DialogFooter className="mt-8 pt-6 border-t-4 border-black">
-          <DialogClose asChild>
-            <Button className="w-full h-14 border-4 border-black bg-red-400 hover:bg-red-300 text-black font-black text-lg shadow-[4px_4px_0px_black] hover:shadow-[6px_6px_0px_black] hover:translate-x-[-2px] hover:translate-y-[-2px] transition-all rounded-none">
-              Close
-            </Button>
-          </DialogClose>
-        </DialogFooter>
+              {aiResponse && (
+                <div className="border-4 border-black bg-green-100 p-4 shadow-[4px_4px_0px_black]">
+                  <div className="flex justify-between items-start mb-2">
+                    <h4 className="font-black text-black">🦉 Buddy says:</h4>
+                  </div>
+                  <p className="font-bold text-gray-800 mb-4">{aiResponse}</p>
+
+                  {aiAudioUrl && (
+                    <div className="border-2 border-black bg-white p-3 shadow-[2px_2px_0px_black]">
+                      <div className="flex items-center gap-3 mb-2">
+                        <Button
+                          onClick={playAudio}
+                          className="h-10 px-4 border-2 border-black bg-purple-300 hover:bg-purple-200 text-black font-bold shadow-[2px_2px_0px_black] hover:shadow-[3px_3px_0px_black] hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all rounded-none"
+                        >
+                          <Volume2 className="w-4 h-4 mr-1" />
+                          Play Audio
+                        </Button>
+                        {isPlaying && (
+                          <div className="flex items-center gap-1 font-bold text-green-600">
+                            <div className="w-2 h-2 bg-green-600 rounded-full animate-pulse"></div>
+                            Playing...
+                          </div>
+                        )}
+                      </div>
+                      <audio
+                        ref={audioRef}
+                        src={aiAudioUrl}
+                        controls
+                        onEnded={() => setIsPlaying(false)}
+                        onPause={() => setIsPlaying(false)}
+                        className="w-full h-10 border-2 border-black shadow-[2px_2px_0px_black]"
+                      />
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+        <DialogClose asChild>
+          <Button className="w-full mt-10">Close</Button>
+        </DialogClose>
       </DialogContent>
     </Dialog>
   );

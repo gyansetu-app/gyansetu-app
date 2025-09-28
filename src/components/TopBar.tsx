@@ -80,7 +80,7 @@ export default function TopBar() {
                 color: animate ? "#ff4d00" : "",
               }}
             />
-            <span className="font-medium text-base text-foreground">4</span>
+            <span className="font-medium text-base text-foreground">10</span>
             <ChevronDown
               className={`h-4 w-4 transition-transform ${
                 showCalendar ? "rotate-180" : ""

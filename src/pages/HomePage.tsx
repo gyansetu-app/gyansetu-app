@@ -13,6 +13,16 @@ import gamesImg from "/quiz_illustration.png";
 import rankImg from "/visualize_illustration.png";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { useTranslation } from "react-i18next";
+import PeerDeviceLoader from "@/components/PeerLoader";
+
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Download, Star, Sword } from "lucide-react";
 
 export default function HomePage() {
   const navigate = useNavigate();
@@ -109,7 +119,7 @@ export default function HomePage() {
               </h1>
               <p>{t("You have been logging in daily for 10 days!")}</p>
               <img
-                src="/home/streak_achievement.png"
+                src="/streak.jpeg"
                 alt="celebration"
                 className="mx-auto my-4 rounded-[40px]"
               />
@@ -122,7 +132,7 @@ export default function HomePage() {
             <motion.img
               src="mascots/waving_mascot.gif" // place your GIF inside /public
               alt="corner gif"
-              className="absolute bottom-15 right-14 w-24 h-24"
+              className="absolute right-14 w-24 h-24"
               initial={{ opacity: 0, scale: 3 }}
               animate={{ opacity: 1, scale: 2.5 }}
               exit={{ opacity: 0, scale: 0.8 }}
@@ -161,16 +171,103 @@ export default function HomePage() {
                 key={peer.id}
                 className="flex-shrink-0 w-20 h-20 rounded-full border-2 border-main overflow-hidden"
               >
-                <Avatar className="w-full h-full md-5">
-                  <AvatarImage
-                    src={
-                      peer.img ||
-                      `https://avataaars.io/?avatarStyle=Circle&topType=LongHairNotTooLong&accessoriesType=Blank&hairColor=BrownDark&facialHairType=Blank&clotheType=BlazerShirt&eyeType=Default&eyebrowType=Default&mouthType=Twinkle&skinColor=Brown`
-                    }
-                    alt={`Peer ${peer.id}`}
-                    className="w-full h-full object-cover"
-                  />
-                </Avatar>
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Avatar className="w-full h-full md-5">
+                      <AvatarImage
+                        src={
+                          peer.img ||
+                          `https://avataaars.io/?avatarStyle=Circle&topType=LongHairNotTooLong&accessoriesType=Blank&hairColor=BrownDark&facialHairType=Blank&clotheType=BlazerShirt&eyeType=Default&eyebrowType=Default&mouthType=Twinkle&skinColor=Brown`
+                        }
+                        alt={`Peer ${peer.id}`}
+                        className="w-full h-full object-cover"
+                      />
+                    </Avatar>
+                  </DialogTrigger>
+                  <DialogContent className="max-w-sm">
+                    <DialogHeader>
+                      <DialogTitle>View Peer</DialogTitle>
+                    </DialogHeader>
+                    <div className="flex flex-col items-center">
+                      <Avatar className="w-32 h-32 md-5">
+                        <AvatarImage
+                          src={
+                            peer.img ||
+                            `https://avataaars.io/?avatarStyle=Circle&topType=LongHairNotTooLong&accessoriesType=Blank&hairColor=BrownDark&facialHairType=Blank&clotheType=BlazerShirt&eyeType=Default&eyebrowType=Default&mouthType=Twinkle&skinColor=Brown`
+                          }
+                          alt={`Peer ${peer.id}`}
+                          className="w-full h-full object-cover"
+                        />
+                      </Avatar>
+                      <p className="mt-3 text-lg">Subhajit Behura</p>
+                      <p className="text-sm text-(--chart-1)">Level 18</p>
+                      {/* Circular Button Row */}
+                      <div className="flex gap-4 mt-4">
+                        <Dialog>
+                          <DialogTrigger asChild>
+                            <Button className="w-12 h-12 rounded-full p-0 bg-(--chart-4) hover:bg-(--chart-4)/90">
+                              <Download className="w-6 h-6" />
+                            </Button>
+                          </DialogTrigger>
+                          <DialogContent className="max-w-sm">
+                            <DialogHeader>
+                              <DialogTitle>NearbyShare Module</DialogTitle>
+                            </DialogHeader>
+                            <PeerDeviceLoader />
+                          </DialogContent>
+                        </Dialog>
+                        <Button className="w-12 h-12 rounded-full p-0 bg-(--chart-3) hover:bg-(--chart-3)/90">
+                          <Star />
+                        </Button>
+                        <Button className="w-12 h-12 rounded-full p-0 bg-(--chart-2) hover:bg-(--chart-2)/90">
+                          <Sword />
+                        </Button>
+                      </div>
+                      <p className="mb-2 mt-4 text-xl">
+                        Past Quiz Battles with Subhajit
+                      </p>
+                      <div className="w-full max-h-48 overflow-y-auto">
+                        <div className="space-y-2">
+                          {[1, 2, 3].map((battle) => (
+                            <div
+                              key={battle}
+                              className="flex justify-between items-center bg-secondary-background p-3 rounded-lg"
+                            >
+                              <div>
+                                <p className="font-medium">
+                                  {t("Quiz Battle")} #{battle}
+                                </p>
+                                <p className="text-sm text-muted-foreground">
+                                  {t("Date")}:{" "}
+                                  <span className="font-normal">
+                                    {t("2024-08-0" + battle)}
+                                  </span>
+                                </p>
+                              </div>
+                              <div className="text-right">
+                                <p className="font-medium text-(--chart-4)">
+                                  {t("Won")}
+                                </p>
+                                <p className="text-sm text-muted-foreground">
+                                  {t("Score")}:{" "}
+                                  <span
+                                    className={
+                                      battle % 2 === 0
+                                        ? "text-(--chart-3)"
+                                        : "text-(--chart-4)"
+                                    }
+                                  >
+                                    {battle % 2 === 0 ? "80" : "95"}
+                                  </span>
+                                </p>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </DialogContent>
+                </Dialog>
               </div>
             ))}
           </div>
